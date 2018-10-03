@@ -1,0 +1,19 @@
+#!/bin/bash
+
+touch "$UID"
+
+var=$(stat -c "%z" "$UID")
+vardate="$(echo $var | cut -f1 -d" ")"
+vartime="$(echo $var | cut -f2 -d" ")"
+
+y=$(echo $vardate | cut -f1 -d-)
+m=$(echo $vardate | cut -f2 -d-)
+d=$(echo $vardate | cut -f3 -d-)
+
+h=$(echo $vartime | cut -f1 -d:)
+min=$(echo $vartime | cut -f2 -d:)
+
+echo $(( y+m+d+h+min )) >"$UID"
+echo '(c)' $USER >>"$UID"
+
+exit 0
